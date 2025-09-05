@@ -125,20 +125,22 @@
   }
 }
 
-/* Adding film strip slider animations */
-@keyframes scroll {
+@keyframes infinite-scroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-192px * 8)); /* Move by width of 8 images */
+    transform: translateX(-50%);
   }
 }
 
-.animate-scroll {
-  animation: scroll 20s linear infinite;
+.infinite-scroll-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
 }
 
-.pause-animation:hover .animate-scroll {
-  animation-play-state: paused;
+.infinite-scroll-content {
+  display: flex;
+  animation: infinite-scroll 20s linear infinite; /* increase time for smoothness */
 }
