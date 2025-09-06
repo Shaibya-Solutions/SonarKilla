@@ -144,3 +144,12 @@
   display: flex;
   animation: infinite-scroll 20s linear infinite; /* increase time for smoothness */
 }
+
+.hero-section {
+  clip-path: ellipse(85% 100% at 50% 0%);
+}
+@media (max-width: 768px) {
+  .hero-section {
+    clip-path: ellipse(125% 100% at 50% 0%);
+  }
+}

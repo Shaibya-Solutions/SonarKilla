@@ -2,37 +2,60 @@
 
 import { Button } from "@/components/ui/button";
 import TourCard from "@/components/TourCard";
-import { toursData } from "@/data/data";
-import {
-  Menu,
-  Crown,
-  Calendar,
-  Users,
-  Phone,
-  Mail,
-  MapIcon,
-} from "lucide-react";
+import { toursData, TestimonialData, photoGallery } from "@/data/data";
+import { Menu, Phone, Mail, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function RajasthanTourismPage() {
+  const [index, setIndex] = useState(0);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest("nav") && !target.closest("button")) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Change the testimonial every 5 seconds
+    const interval = setInterval(() => {
+      setIndex((prevIndex) =>
+        prevIndex === TestimonialData.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className='min-h-screen bg-white'>
       {/* Header */}
       <header className='absolute top-0 left-0 right-0 z-50 bg-black/10'>
-        <div className='container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <div className='container max-w-8xl mx-auto px-4 sm:px-6 lg:px-20'>
           <div className='flex h-20 items-center justify-between'>
-            <div className='relative flex flex-col items-center space-x-3 border-2 justify-center'>
-              <div className='w-48 h-auto absolute top-[-40px]'>
+            <div className='mt-14 relative flex flex-col items-center justify-center'>
+              <div className=''>
                 <Image
                   src='/figma-added/logo.png'
                   alt='Logo'
                   width={48}
                   height={48}
-                  className='w-48 object-contain'
+                  className='w-24 sm:w-32'
                 />
               </div>
-              <div className='font-["Cinzel"] text-white absolute top-10 -right-18 flex flex-col justify-center items-center w-40'>
+              <div className='font-["Cinzel"] text-white flex flex-col justify-center items-center'>
                 <div className='text-lg font-semibold'>Sonar Killa</div>
                 <div className='text-xs opacity-90'>TOURS AND TRAVELS</div>
               </div>
@@ -67,11 +90,47 @@ export default function RajasthanTourismPage() {
                 BOOK NOW
               </Button>
             </nav>
-
+            {/* Mobile Menu Button */}
+            {dropdownOpen && (
+              <div className='absolute top-20 right-4 bg-white rounded-lg shadow-lg py-2 w-32 flex flex-col'>
+                <Link
+                  href='#services'
+                  className='px-4 py-2 text-sm text-gray-800 hover:bg-gray-100'
+                  onClick={() => setDropdownOpen(false)}
+                >
+                  SERVICES
+                </Link>
+                <Link
+                  href='#story'
+                  className='px-4 py-2 text-sm text-gray-800 hover:bg-gray-100'
+                  onClick={() => setDropdownOpen(false)}
+                >
+                  OUR STORY
+                </Link>
+                <Link
+                  href='#contact'
+                  className='px-4 py-2 text-sm text-gray-800 hover:bg-gray-100'
+                  onClick={() => setDropdownOpen(false)}
+                >
+                  CONTACT US
+                </Link>
+                <Link
+                  href='#gallery'
+                  className='px-4 py-2 text-sm text-gray-800 hover:bg-gray-100'
+                  onClick={() => setDropdownOpen(false)}
+                >
+                  GALLERY
+                </Link>
+                <Button className='m-2 bg-orange-400 hover:bg-orange-600 text-white rounded-lg opacity-85 px-6'>
+                  BOOK NOW
+                </Button>
+              </div>
+            )}
             <Button
               variant='ghost'
               size='sm'
               className='md:hidden text-white hover:bg-white/20'
+              onClick={toggleDropdown}
             >
               <Menu className='h-5 w-5' />
             </Button>
@@ -86,13 +145,7 @@ export default function RajasthanTourismPage() {
         }}
         className='bg-cover'
       >
-        <section
-          className='relative h-screen overflow-hidden'
-          style={{
-            /* bottom edge curves upward in the middle */
-            clipPath: "ellipse(85% 100% at 50% 0%)",
-          }}
-        >
+        <section className='hero-section relative h-screen overflow-hidden'>
           <div className=''>
             <Image
               src='/figma-added/herosection-bg.jpg'
@@ -117,7 +170,7 @@ export default function RajasthanTourismPage() {
               <div className='relative inline-block mt-16'>
                 {/* shadow layer */}
                 <h1
-                  className='absolute top-0 left-0 text-5xl lg:text-7xl font-["Raleway"] mb-6 leading-tight font-extrabold text-black opacity-40'
+                  className='absolute top-0 left-0 text-4xl sm:text-5xl lg:text-7xl font-["Raleway"] mb-6 leading-tight font-extrabold text-black opacity-40'
                   style={{
                     transform: "translate(4px, 4px)", // shadow offset
                     filter: "blur(2px)", // soften edges
@@ -126,18 +179,22 @@ export default function RajasthanTourismPage() {
                 >
                   TRAVEL LIKE ROYALS,
                   <br />
-                  <span className='text-6xl'>LIVE THE LEGACY</span>
+                  <span className='text-3xl sm:text-4xl lg:text-6xl'>
+                    LIVE THE LEGACY
+                  </span>
                 </h1>
 
                 {/* gradient text */}
-                <h1 className='relative text-5xl lg:text-7xl font-["Raleway"] mb-6 leading-tight font-extrabold bg-gradient-to-r from-[#f7e1dc] via-[#f7f0ee] to-[#f9cca9] bg-clip-text text-transparent'>
+                <h1 className='relative text-4xl sm:text-5xl lg:text-7xl font-["Raleway"] mb-6 leading-tight font-extrabold bg-gradient-to-r from-[#f7e1dc] via-[#f7f0ee] to-[#f9cca9] bg-clip-text text-transparent'>
                   TRAVEL LIKE ROYALS,
                   <br />
-                  <span className='text-6xl'>LIVE THE LEGACY</span>
+                  <span className='text-3xl sm:text-4xl lg:text-6xl'>
+                    LIVE THE LEGACY
+                  </span>
                 </h1>
               </div>
 
-              <p className='text-xl mb-8  text-white opacity-90 max-w-lg drop-shadow-md'>
+              <p className='text-lg sm:text-xl mb-8  text-white opacity-90 max-w-lg drop-shadow-md'>
                 Explore ancient forts and hidden gems of Rajasthan with our
                 curated experiences designed for comfort and luxury.
               </p>
@@ -270,7 +327,7 @@ export default function RajasthanTourismPage() {
       >
         <div className='container mx-auto max-w-7xl'>
           <div
-            className='relative border-2 rounded-3xl overflow-hidden min-h-[450px] shadow-2xl flex items-center justify-around'
+            className='relative border-2 rounded-3xl overflow-hidden min-h-[450px] shadow-2xl flex flex-col md:flex-row pb-20 md:pb-0 items-center'
             style={{
               backgroundImage: "url('figma-added/man-on-camel.jpg')",
               backgroundSize: "cover",
@@ -281,12 +338,12 @@ export default function RajasthanTourismPage() {
             <Image
               src='/figma-added/rajasthan-tourism.png'
               alt='Rajasthan Desert Story'
-              width={500}
+              width={450}
               height={450}
               className='object-cover'
             />
             <div
-              className='relative z-10 p-4 text-start text-white'
+              className='relative z-10 p-4 flex flex-col gap-4 text-start text-white'
               style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)" }}
             >
               <h2 className='text-5xl font-bold mb-4'>
@@ -303,96 +360,102 @@ export default function RajasthanTourismPage() {
       </section>
 
       {/* Testimonial Section */}
-      <section className='py-20 bg-white'>
-        <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='max-w-4xl mx-auto text-center'>
-            <div className='flex items-center justify-center mb-8'>
-              <div className='w-16 h-1 bg-orange-500 mr-4'></div>
-              <blockquote className='text-2xl lg:text-3xl font-light text-gray-700 italic'>
-                "Jaipur is literally dressed with all the
-                <br />
-                rich culture and captivating history"
-              </blockquote>
-              <div className='w-16 h-1 bg-orange-500 ml-4'></div>
-            </div>
-            <p className='text-gray-600 font-medium'>- TANISHKA</p>
+      <section
+        className='relative py-20 bg-white'
+        style={{
+          backgroundImage: "url('figma-added/checker-bg-1.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className='max-w-7xl mx-auto text-center'>
+          {TestimonialData.map((testimonial, i) => (
+            <div
+              key={i}
+              className={`flex flex-col lg:flex-row items-center justify-between lg:px-8 lg:py-12 xl:py-24 xl:px-16 rounded-2xl border-2 bg-gray-200 ${
+                index === i ? "active" : "hidden"
+              }`}
+            >
+              {/* <div className='w-16 h-1 bg-orange-500 mr-4'></div> */}
+              <div className='py-10 px-5 flex flex-col items-center justify-center gap-4'>
+                <blockquote className='max-w-2xl text-2xl lg:text-3xl font-light text-gray-700 italic'>
+                  "{testimonial.feedback}"
+                </blockquote>
+                {/* <div className='w-16 h-1 bg-orange-500 ml-4'></div> */}
 
-            <div className='mt-12'>
-              <Image
-                src='/amber-fort-jaipur-rajasthan-architecture-tourists.jpg'
-                alt='Jaipur Architecture'
-                width={400}
-                height={300}
-                className='mx-auto rounded-lg shadow-lg'
-              />
-            </div>
-
-            {/* Pagination dots */}
-            <div className='flex justify-center mt-8 space-x-2'>
-              {[...Array(5)].map((_, i) => (
-                <div
-                  key={i}
-                  className={`w-2 h-2 rounded-full ${
-                    i === 2 ? "bg-orange-500" : "bg-gray-300"
-                  }`}
+                <p className='text-gray-600 font-medium'>
+                  - {testimonial.name}
+                </p>
+              </div>
+              <div className=''>
+                <Image
+                  src={testimonial.image}
+                  alt='Jaipur Architecture'
+                  width={600}
+                  height={300}
+                  className='w-[350px] sm:w-[500px] h-[300px] sm:h-[400px] rounded-xl shadow-lg'
                 />
-              ))}
+              </div>
             </div>
+          ))}
+        </div>
+        <div className='hidden sm:absolute left-2 lg:left-10 right-2 lg:right-10 inset-0 sm:flex items-center justify-between'>
+          <div
+            className=''
+            onClick={() =>
+              setIndex(index === 0 ? TestimonialData.length - 1 : index - 1)
+            }
+          >
+            <ArrowLeft className='h-20 w-20 text-orange-400 opacity-40' />
+          </div>
+          <div
+            className=''
+            onClick={() =>
+              setIndex(index === TestimonialData.length - 1 ? 0 : index + 1)
+            }
+          >
+            <ArrowLeft className='h-20 w-20 text-orange-400 opacity-40 rotate-180' />
+          </div>
+        </div>
+        <div className='absolute sm:bottom-30 w-full'>
+          <div className='flex justify-center mt-8 space-x-2'>
+            {TestimonialData.map((_, i) => (
+              <button
+                key={i}
+                className={`w-3 h-3 rounded-full cursor-pointer ${
+                  index === i ? "bg-orange-500" : "bg-gray-400"
+                }`}
+                onClick={() => setIndex(i)}
+              ></button>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Photo Gallery Grid */}
-      <section id='gallery' className='py-20 bg-gray-50'>
-        <div className='container mx-auto px-4'>
-          <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
-            <Image
-              src='/rajasthani-palace-courtyard-architecture.jpg'
-              alt='Palace Architecture'
-              width={200}
-              height={200}
-              className='rounded-lg shadow-md'
-            />
-            <div className='bg-gray-200 rounded-lg'></div>
-            <div className='bg-gray-200 rounded-lg'></div>
-            <Image
-              src='/rajasthani-elephant-decorated-for-festival.jpg'
-              alt='Decorated Elephant'
-              width={200}
-              height={200}
-              className='rounded-lg shadow-md'
-            />
-
-            <Image
-              src='/placeholder.svg?height=200&width=200'
-              alt='Golden Fort'
-              width={200}
-              height={200}
-              className='rounded-lg shadow-md'
-            />
-            <Image
-              src='/placeholder.svg?height=200&width=200'
-              alt='Village Life'
-              width={200}
-              height={200}
-              className='rounded-lg shadow-md'
-            />
-
-            <div className='bg-orange-500 rounded-lg flex items-center justify-center'>
-              <div className='text-center text-white'>
-                <div className='text-sm mb-2'>WE ARE</div>
-                <div className='text-2xl font-bold'>"Iconic"</div>
-              </div>
+      <section
+        id='gallery'
+        className='py-20 bg-gray-50'
+        style={{
+          backgroundImage: "url('figma-added/checker-bg-1.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5'>
+          {photoGallery.map((photo, index) => (
+            <div key={index} className='p-2'>
+              <Image
+                src={photo}
+                alt={`Gallery Image ${index + 1}`}
+                width={300}
+                height={300}
+                className='w-full h-56 object-cover rounded-sm hover:scale-105 transition-transform'
+              />
             </div>
-
-            <Image
-              src='/placeholder.svg?height=200&width=200'
-              alt='Desert Camel'
-              width={200}
-              height={200}
-              className='rounded-lg shadow-md'
-            />
-          </div>
+          ))}
         </div>
       </section>
 
@@ -404,9 +467,10 @@ export default function RajasthanTourismPage() {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
+        className='py-10'
       >
         <div
-          className='max-w-7xl mx-auto rounded-4xl flex flex-col mb-10'
+          className='max-w-7xl mx-auto rounded-4xl flex flex-col'
           style={{
             backgroundImage: "url('figma-added/footer-pic.jpg')",
             backgroundSize: "cover",
@@ -422,7 +486,7 @@ export default function RajasthanTourismPage() {
               className='text-white'
               style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)" }}
             >
-              <div className='text-7xl mb-4'>
+              <div className='text-4xl sm:text-5xl md:text-7xl mb-4'>
                 Plan Your Dream Holiday <br /> Get in Touch with Us
               </div>
               <p className='text-lg mt-8'>
@@ -467,19 +531,20 @@ export default function RajasthanTourismPage() {
               </Button>
             </form>
           </div>
-          <div className='bg-black/70 rounded-2xl text-white p-6 m-6 flex flex-col md:flex-row justify-between items-center'>
+          <div className='bg-black/70 rounded-2xl text-white m-2 p-6 sm:m-6 flex flex-col md:flex-row justify-between items-center'>
             <span className='text-sm'>
               © {new Date().getFullYear()} Sonarkilla. All rights reserved.
             </span>
-            <div className='flex flex-col md:flex-row items-center justify-between gap-4 mt-4 md:mt-0'>
-              <div className='flex items-center'>
+            <div className='flex flex-col md:flex-row items-start justify-between gap-4 mt-4 md:mt-0'>
+              <div className='flex items-center text-sm lg:text-lg'>
                 <Phone className='inline-block mr-2' />
-                <span className='mr-4'>002- 01008431112</span>
+                <span className='md:mr-4'>002- 01008431112</span>
               </div>
-              <div className='flex items-center'>
+              <div className='flex items-center text-sm lg:text-lg'>
                 <Mail className='inline-block mr-2' />
-                <span className='mr-4'>
-                  sonarkillatoursandtravels@gmail.com
+                <span className='md:mr-4 flex flex-wrap items-center'>
+                  <span>sonarkillatours</span>
+                  <span>andtravels@gmail.com</span>
                 </span>
               </div>
             </div>

@@ -6,6 +6,12 @@ export interface Tour {
   image: string;
 }
 
+export interface Testimonial {
+  name: string;
+  feedback: string;
+  image: string;
+}
+
 export const toursData: Tour[] = [
   {
     title: "Classic Rajasthan Tour",
@@ -55,4 +61,43 @@ export const toursData: Tour[] = [
     duration: "4 Days / 3 Nights",
     image: "/placeholder-tf7sd.png",
   },
+];
+
+export const TestimonialData: Testimonial[] = [
+  {
+    name: "Tanishka",
+    feedback:
+      "Jaipur is literally dressed with all the rich culture and captivating history",
+    image: "/amber-fort-jaipur-rajasthan-architecture-tourists.jpg",
+  },
+  {
+    name: "Arjun",
+    feedback:
+      "I loved every moment of the tour. The accommodations were top-notch.",
+    image: "/arjun.jpg",
+  },
+  {
+    name: "Meera",
+    feedback:
+      "A well-organized trip with a perfect blend of culture and adventure.",
+    image: "/meera.jpg",
+  },
+];
+
+export const photoGallery = [
+  "/figma-added/photo-gallery/photo1.jpg",
+  "/figma-added/photo-gallery/photo2.jpg",
+  "/figma-added/photo-gallery/photo3.jpg",
+  "/figma-added/photo-gallery/photo4.jpg",
+  "/figma-added/photo-gallery/photo5.jpg",
+  "/figma-added/photo-gallery/photo6.jpg",
+  "/figma-added/photo-gallery/photo7.jpg",
+  "/figma-added/photo-gallery/photo8.jpg",
+  "/figma-added/photo-gallery/photo9.jpg",
+  "/figma-added/photo-gallery/photo10.jpg",
+  "/figma-added/photo-gallery/photo11.jpg",
+  "/figma-added/photo-gallery/photo12.jpg",
+  "/figma-added/photo-gallery/photo13.jpg",
+  "/figma-added/photo-gallery/photo14.jpg",
+  "/figma-added/photo-gallery/photo15.jpg",
 ];
