@@ -6,7 +6,7 @@ import { toursData, TestimonialData, photoGallery } from "@/data/data";
 import { Menu, Phone, Mail, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function RajasthanTourismPage() {
   const [index, setIndex] = useState(0);
@@ -37,6 +37,42 @@ export default function RajasthanTourismPage() {
       );
     }, 5000);
     return () => clearInterval(interval);
+  }, []);
+
+  // refs for sections
+  const heroRef = useRef<HTMLElement | null>(null);
+  const tourRef = useRef<HTMLElement | null>(null);
+  const filmRef = useRef<HTMLElement | null>(null);
+  const storyRef = useRef<HTMLElement | null>(null);
+  const testimonialRef = useRef<HTMLElement | null>(null);
+  const galleryRef = useRef<HTMLElement | null>(null);
+  const footerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const sections = [
+      heroRef.current,
+      tourRef.current,
+      filmRef.current,
+      storyRef.current,
+      testimonialRef.current,
+      galleryRef.current,
+      footerRef.current,
+    ].filter(Boolean) as HTMLElement[];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target); // trigger once
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -5% 0px" }
+    );
+
+    sections.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -145,7 +181,10 @@ export default function RajasthanTourismPage() {
         }}
         className='bg-cover'
       >
-        <section className='hero-section relative h-screen overflow-hidden'>
+        <section
+          ref={heroRef as React.RefObject<HTMLElement>}
+          className='hero-section relative h-screen overflow-hidden reveal-section'
+        >
           <div className=''>
             <Image
               src='/figma-added/herosection-bg.jpg'
@@ -218,7 +257,8 @@ export default function RajasthanTourismPage() {
       </div>
       {/* Featured Tour Packages */}
       <section
-        className='py-20 bg-gray-50'
+        ref={tourRef as React.RefObject<HTMLElement>}
+        className='py-20 bg-gray-50 reveal-section'
         style={{
           backgroundImage: "url('figma-added/checker-bg-1.jpg')",
           backgroundSize: "cover",
@@ -244,7 +284,8 @@ export default function RajasthanTourismPage() {
 
       {/* Film Strip Gallery */}
       <section
-        className='pb-16 bg-white'
+        ref={filmRef as React.RefObject<HTMLElement>}
+        className='pb-16 bg-white reveal-section'
         style={{
           backgroundImage: "url('figma-added/checker-bg-1.jpg')",
           backgroundSize: "cover",
@@ -317,7 +358,8 @@ export default function RajasthanTourismPage() {
       {/* Story Section */}
       <section
         id='story'
-        className='py-20'
+        ref={storyRef as React.RefObject<HTMLElement>}
+        className='py-20 reveal-section'
         style={{
           backgroundImage: "url('figma-added/checker-bg-1.jpg')",
           backgroundSize: "cover",
@@ -361,7 +403,8 @@ export default function RajasthanTourismPage() {
 
       {/* Testimonial Section */}
       <section
-        className='relative py-20 bg-white'
+        ref={testimonialRef as React.RefObject<HTMLElement>}
+        className='relative py-20 bg-white reveal-section'
         style={{
           backgroundImage: "url('figma-added/checker-bg-1.jpg')",
           backgroundSize: "cover",
@@ -436,7 +479,8 @@ export default function RajasthanTourismPage() {
       {/* Photo Gallery Grid */}
       <section
         id='gallery'
-        className='py-20 bg-gray-50'
+        ref={galleryRef as React.RefObject<HTMLElement>}
+        className='py-20 bg-gray-50 reveal-section'
         style={{
           backgroundImage: "url('figma-added/checker-bg-1.jpg')",
           backgroundSize: "cover",
@@ -461,13 +505,14 @@ export default function RajasthanTourismPage() {
 
       {/* Footer section */}
       <footer
+        ref={footerRef as React.RefObject<HTMLElement>}
         style={{
           backgroundImage: "url('figma-added/checker-bg-1.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
-        className='py-10'
+        className='py-10 reveal-section'
       >
         <div
           className='max-w-7xl mx-auto rounded-4xl flex flex-col'
@@ -499,7 +544,6 @@ export default function RajasthanTourismPage() {
               <label>Full Name*</label>
               <input
                 type='text'
-                value={""}
                 placeholder='Your full name'
                 required
                 className='border border-gray-300 p-2 rounded-md'
@@ -507,7 +551,6 @@ export default function RajasthanTourismPage() {
               <label className='mt-2'>Email Address*</label>
               <input
                 type='email'
-                value={""}
                 placeholder='Your email address'
                 required
                 className='border border-gray-300 p-2 rounded-md'
@@ -515,7 +558,6 @@ export default function RajasthanTourismPage() {
               <label className='mt-2'>Phone Number*</label>
               <input
                 type='tel'
-                value={""}
                 placeholder='Your phone number'
                 required
                 className='border border-gray-300 p-2 rounded-md'

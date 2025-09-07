@@ -74,30 +74,30 @@ export const TestimonialData: Testimonial[] = [
     name: "Arjun",
     feedback:
       "I loved every moment of the tour. The accommodations were top-notch.",
-    image: "/arjun.jpg",
+    image: "rajasthan-desert-sunset-landscape.jpg",
   },
   {
     name: "Meera",
     feedback:
       "A well-organized trip with a perfect blend of culture and adventure.",
-    image: "/meera.jpg",
+    image: "rajasthani-elephant-decorated-for-festival.jpg",
   },
 ];
 
 export const photoGallery = [
   "/figma-added/photo-gallery/photo1.jpg",
   "/figma-added/photo-gallery/photo2.jpg",
-  "/figma-added/photo-gallery/photo3.jpg",
-  "/figma-added/photo-gallery/photo4.jpg",
-  "/figma-added/photo-gallery/photo5.jpg",
-  "/figma-added/photo-gallery/photo6.jpg",
   "/figma-added/photo-gallery/photo7.jpg",
-  "/figma-added/photo-gallery/photo8.jpg",
-  "/figma-added/photo-gallery/photo9.jpg",
-  "/figma-added/photo-gallery/photo10.jpg",
-  "/figma-added/photo-gallery/photo11.jpg",
   "/figma-added/photo-gallery/photo12.jpg",
-  "/figma-added/photo-gallery/photo13.jpg",
-  "/figma-added/photo-gallery/photo14.jpg",
+  "/figma-added/photo-gallery/photo15.jpg",
+  "/figma-added/photo-gallery/photo1.jpg",
+  "/figma-added/photo-gallery/photo2.jpg",
+  "/figma-added/photo-gallery/photo7.jpg",
+  "/figma-added/photo-gallery/photo12.jpg",
+  "/figma-added/photo-gallery/photo15.jpg",
+  "/figma-added/photo-gallery/photo1.jpg",
+  "/figma-added/photo-gallery/photo12.jpg",
+  "/figma-added/photo-gallery/photo2.jpg",
+  "/figma-added/photo-gallery/photo7.jpg",
   "/figma-added/photo-gallery/photo15.jpg",
 ];
