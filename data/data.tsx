@@ -51,7 +51,7 @@ export const toursData: Tour[] = [
     longDescription:
       "Explore the majestic forts of Chittorgarh and Kumbhalgarh, along with the beautiful lakes of Udaipur.",
     duration: "6 Days / 5 Nights",
-    image: "/placeholder-wxuwf.png",
+    image: "/photo-gallery/rajasthan-tour4.webp",
   },
   {
     title: "Short Getaway",
@@ -59,7 +59,7 @@ export const toursData: Tour[] = [
     longDescription:
       "A quick tour covering Jaipur's highlights and the spiritual towns of Ajmer and Pushkar.",
     duration: "4 Days / 3 Nights",
-    image: "/placeholder-tf7sd.png",
+    image: "/photo-gallery/rajasthan-tour5.webp",
   },
 ];
 
@@ -85,19 +85,19 @@ export const TestimonialData: Testimonial[] = [
 ];
 
 export const photoGallery = [
-  "/figma-added/photo-gallery/photo1.jpg",
-  "/figma-added/photo-gallery/photo2.jpg",
-  "/figma-added/photo-gallery/photo7.jpg",
-  "/figma-added/photo-gallery/photo12.jpg",
-  "/figma-added/photo-gallery/photo15.jpg",
-  "/figma-added/photo-gallery/photo1.jpg",
-  "/figma-added/photo-gallery/photo2.jpg",
-  "/figma-added/photo-gallery/photo7.jpg",
-  "/figma-added/photo-gallery/photo12.jpg",
-  "/figma-added/photo-gallery/photo15.jpg",
-  "/figma-added/photo-gallery/photo1.jpg",
-  "/figma-added/photo-gallery/photo12.jpg",
-  "/figma-added/photo-gallery/photo2.jpg",
-  "/figma-added/photo-gallery/photo7.jpg",
-  "/figma-added/photo-gallery/photo15.jpg",
+  "/photo-gallery/photo1.jpg",
+  "/photo-gallery/photo2.jpg",
+  "/photo-gallery/photo3.jpg",
+  "/photo-gallery/photo4.jpg",
+  "/photo-gallery/photo5.jpg",
+  "/photo-gallery/rajasthan-tour1.webp",
+  "/photo-gallery/rajasthan-tour2.webp",
+  "/photo-gallery/rajasthan-tour3.webp",
+  "/photo-gallery/rajasthan-tour4.webp",
+  "/photo-gallery/rajasthan-tour5.webp",
+  "rajasthani-elephant-decorated-for-festival.jpg",
+  "rajasthani-folk-dancers-traditional-costume-perfor.jpg",
+  "rajasthani-palace-courtyard-architecture.jpg",
+  "silhouettes-of-rajasthani-musicians-with-tradition.jpg",
+  "udaipur-city-palace-lake-view-rajasthan.jpg",
 ];

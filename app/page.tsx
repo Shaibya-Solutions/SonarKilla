@@ -9,8 +9,10 @@ import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 
 export default function RajasthanTourismPage() {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(0); // testimonial index
+  const [heroImageIndex, setHeroImageIndex] = useState(0); // hero background slider index
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showBookNowModel, setShowBookNowModel] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -31,13 +33,28 @@ export default function RajasthanTourismPage() {
 
   useEffect(() => {
     // Change the testimonial every 5 seconds
-    const interval = setInterval(() => {
+    const testimonialInterval = setInterval(() => {
       setIndex((prevIndex) =>
         prevIndex === TestimonialData.length - 1 ? 0 : prevIndex + 1
       );
     }, 5000);
-    return () => clearInterval(interval);
+    return () => clearInterval(testimonialInterval);
   }, []);
+
+  // Hero background images (ensure these files exist in /public)
+  const heroImages = useRef([
+    "/herosection-bg.jpg",
+    "/rajasthan-desert-sunset-landscape.jpg",
+    "/udaipur-city-palace-lake-view-rajasthan.jpg",
+    "/camel-safari-thar-desert-rajasthan-sunset.jpg",
+  ]).current;
+
+  useEffect(() => {
+    const heroInterval = setInterval(() => {
+      setHeroImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(heroInterval);
+  }, [heroImages.length]);
 
   // refs for sections
   const heroRef = useRef<HTMLElement | null>(null);
@@ -84,7 +101,7 @@ export default function RajasthanTourismPage() {
             <div className='mt-14 relative flex flex-col items-center justify-center'>
               <div className=''>
                 <Image
-                  src='/figma-added/logo.png'
+                  src='logo.png'
                   alt='Logo'
                   width={48}
                   height={48}
@@ -122,7 +139,10 @@ export default function RajasthanTourismPage() {
               >
                 GALLERY
               </Link>
-              <Button className='bg-white hover:bg-orange-600 text-black border-0 rounded-full px-6'>
+              <Button
+                onClick={() => setShowBookNowModel(true)}
+                className='bg-white hover:bg-orange-600 text-black border-0 rounded-full px-6'
+              >
                 BOOK NOW
               </Button>
             </nav>
@@ -177,7 +197,7 @@ export default function RajasthanTourismPage() {
       {/* Hero Section with Curved Design */}
       <div
         style={{
-          backgroundImage: "url('figma-added/checker-bg-1.jpg')",
+          backgroundImage: "url('checker-bg-1.jpg')",
         }}
         className='bg-cover'
       >
@@ -185,15 +205,23 @@ export default function RajasthanTourismPage() {
           ref={heroRef as React.RefObject<HTMLElement>}
           className='hero-section relative h-screen overflow-hidden reveal-section'
         >
-          <div className=''>
-            <Image
-              src='/figma-added/herosection-bg.jpg'
-              alt='Rajasthan Desert Sunset'
-              fill
-              className='object-cover w-full h-full'
-            />
-            {/* Dark overlay for better text contrast */}
-            <div className='absolute inset-0 bg-black/20'></div>
+          {/* Background slider */}
+          <div className='absolute inset-0'>
+            {heroImages.map((src, i) => (
+              <Image
+                key={src}
+                src={src}
+                alt='Rajasthan travel highlight'
+                fill
+                priority={i === 0}
+                className={`object-cover w-full h-full transition-opacity duration-1000 ease-in-out ${
+                  i === heroImageIndex ? "opacity-100" : "opacity-0"
+                }`}
+                aria-hidden={i !== heroImageIndex}
+              />
+            ))}
+            {/* Dark overlay */}
+            <div className='absolute inset-0 bg-black/20 pointer-events-none' />
           </div>
 
           {/* Curved bottom
@@ -260,7 +288,7 @@ export default function RajasthanTourismPage() {
         ref={tourRef as React.RefObject<HTMLElement>}
         className='py-20 bg-gray-50 reveal-section'
         style={{
-          backgroundImage: "url('figma-added/checker-bg-1.jpg')",
+          backgroundImage: "url('checker-bg-1.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -287,7 +315,7 @@ export default function RajasthanTourismPage() {
         ref={filmRef as React.RefObject<HTMLElement>}
         className='pb-16 bg-white reveal-section'
         style={{
-          backgroundImage: "url('figma-added/checker-bg-1.jpg')",
+          backgroundImage: "url('checker-bg-1.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -361,7 +389,7 @@ export default function RajasthanTourismPage() {
         ref={storyRef as React.RefObject<HTMLElement>}
         className='py-20 reveal-section'
         style={{
-          backgroundImage: "url('figma-added/checker-bg-1.jpg')",
+          backgroundImage: "url('checker-bg-1.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -371,14 +399,14 @@ export default function RajasthanTourismPage() {
           <div
             className='relative border-2 rounded-3xl overflow-hidden min-h-[450px] shadow-2xl flex flex-col md:flex-row pb-20 md:pb-0 items-center'
             style={{
-              backgroundImage: "url('figma-added/man-on-camel.jpg')",
+              backgroundImage: "url('man-on-camel.jpg')",
               backgroundSize: "cover",
               backgroundPosition: "bottom",
               backgroundRepeat: "no-repeat",
             }}
           >
             <Image
-              src='/figma-added/rajasthan-tourism.png'
+              src='rajasthan-tourism.png'
               alt='Rajasthan Desert Story'
               width={450}
               height={450}
@@ -406,7 +434,7 @@ export default function RajasthanTourismPage() {
         ref={testimonialRef as React.RefObject<HTMLElement>}
         className='relative py-20 bg-white reveal-section'
         style={{
-          backgroundImage: "url('figma-added/checker-bg-1.jpg')",
+          backgroundImage: "url('checker-bg-1.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -482,7 +510,7 @@ export default function RajasthanTourismPage() {
         ref={galleryRef as React.RefObject<HTMLElement>}
         className='py-20 bg-gray-50 reveal-section'
         style={{
-          backgroundImage: "url('figma-added/checker-bg-1.jpg')",
+          backgroundImage: "url('checker-bg-1.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -507,7 +535,7 @@ export default function RajasthanTourismPage() {
       <footer
         ref={footerRef as React.RefObject<HTMLElement>}
         style={{
-          backgroundImage: "url('figma-added/checker-bg-1.jpg')",
+          backgroundImage: "url('checker-bg-1.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -517,7 +545,7 @@ export default function RajasthanTourismPage() {
         <div
           className='max-w-7xl mx-auto rounded-4xl flex flex-col'
           style={{
-            backgroundImage: "url('figma-added/footer-pic.jpg')",
+            backgroundImage: "url('footer-pic.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
@@ -580,7 +608,8 @@ export default function RajasthanTourismPage() {
             <div className='flex flex-col md:flex-row items-start justify-between gap-4 mt-4 md:mt-0'>
               <div className='flex items-center text-sm lg:text-lg'>
                 <Phone className='inline-block mr-2' />
-                <span className='md:mr-4'>002- 01008431112</span>
+                <span className='mr-2'>+91</span>
+                <span className='md:mr-4'>9610541122, 8319350163</span>
               </div>
               <div className='flex items-center text-sm lg:text-lg'>
                 <Mail className='inline-block mr-2' />
