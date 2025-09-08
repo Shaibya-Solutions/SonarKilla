@@ -177,7 +177,10 @@ export default function RajasthanTourismPage() {
                 >
                   GALLERY
                 </Link>
-                <Button className='m-2 bg-orange-400 hover:bg-orange-600 text-white rounded-lg opacity-85 px-6'>
+                <Button
+                  onClick={() => setShowBookNowModel(true)}
+                  className='m-2 bg-orange-400 hover:bg-orange-600 text-white rounded-lg opacity-85 px-6'
+                >
                   BOOK NOW
                 </Button>
               </div>
@@ -193,6 +196,48 @@ export default function RajasthanTourismPage() {
           </div>
         </div>
       </header>
+
+      {showBookNowModel && (
+        <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
+          <div className='bg-white rounded-lg p-6 w-full max-w-md mx-4 relative'>
+            <button
+              className='cursor-pointer font-bold absolute top-7 right-7 text-gray-600 hover:text-gray-800'
+              onClick={() => setShowBookNowModel(false)}
+            >
+              X
+            </button>
+            <h2 className='text-xl sm:text-2xl font-semibold mb-4'>Book Your Tour</h2>
+            <form className='flex flex-col gap-4'>
+              <input
+                type='text'
+                placeholder='Full Name'
+                className='border border-gray-300 p-2 rounded-md w-full'
+                required
+              />
+              <input
+                type='email'
+                placeholder='Email Address'
+                className='border border-gray-300 p-2 rounded-md w-full'
+                required
+              />
+              <input
+                type='tel'
+                placeholder='Phone Number'
+                className='border border-gray-300 p-2 rounded-md w-full'
+                required
+              />
+              <textarea
+                placeholder='Your Message'
+                className='border border-gray-300 p-2 rounded-md w-full'
+                rows={4}
+              ></textarea>
+              <Button className='bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md'>
+                Submit
+              </Button>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Hero Section with Curved Design */}
       <div
