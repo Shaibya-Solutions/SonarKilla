@@ -7,12 +7,19 @@ import { Menu, Phone, Mail, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
+import { sendWhatsappBookingViaForm } from "@/lib/utils";
 
 export default function RajasthanTourismPage() {
   const [index, setIndex] = useState(0); // testimonial index
   const [heroImageIndex, setHeroImageIndex] = useState(0); // hero background slider index
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showBookNowModel, setShowBookNowModel] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -141,7 +148,7 @@ export default function RajasthanTourismPage() {
               </Link>
               <Button
                 onClick={() => setShowBookNowModel(true)}
-                className='bg-white hover:bg-orange-600 text-black border-0 rounded-full px-6'
+                className='bg-white cursor-pointer hover:bg-orange-600 text-black border-0 rounded-full px-6'
               >
                 BOOK NOW
               </Button>
@@ -179,7 +186,7 @@ export default function RajasthanTourismPage() {
                 </Link>
                 <Button
                   onClick={() => setShowBookNowModel(true)}
-                  className='m-2 bg-orange-400 hover:bg-orange-600 text-white rounded-lg opacity-85 px-6'
+                  className='m-2 cursor-pointer bg-orange-400 hover:bg-orange-600 text-white rounded-lg opacity-85 px-6'
                 >
                   BOOK NOW
                 </Button>
@@ -206,32 +213,57 @@ export default function RajasthanTourismPage() {
             >
               X
             </button>
-            <h2 className='text-xl sm:text-2xl font-semibold mb-4'>Book Your Tour</h2>
-            <form className='flex flex-col gap-4'>
+            <h2 className='text-xl sm:text-2xl font-semibold mb-4'>
+              Book Your Tour
+            </h2>
+            <form
+              className='flex flex-col gap-4'
+              onSubmit={(e) => {
+                e.preventDefault();
+                sendWhatsappBookingViaForm(formData);
+              }}
+            >
               <input
                 type='text'
                 placeholder='Full Name'
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                value={formData.name}
                 className='border border-gray-300 p-2 rounded-md w-full'
                 required
               />
               <input
                 type='email'
                 placeholder='Email Address'
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                value={formData.email}
                 className='border border-gray-300 p-2 rounded-md w-full'
-                required
               />
               <input
                 type='tel'
-                placeholder='Phone Number'
+                placeholder='+91 Phone Number'
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
+                value={formData.phone}
                 className='border border-gray-300 p-2 rounded-md w-full'
-                required
               />
               <textarea
                 placeholder='Your Message'
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
+                value={formData.message}
                 className='border border-gray-300 p-2 rounded-md w-full'
                 rows={4}
               ></textarea>
-              <Button className='bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md'>
+              <Button
+                type='submit'
+                className='cursor-pointer bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md'
+              >
                 Submit
               </Button>
             </form>
@@ -613,7 +645,10 @@ export default function RajasthanTourismPage() {
                 personalized itinerary just for you.
               </p>
             </div>
-            <form className='bg-white text-black p-6 rounded-xl shadow-lg flex flex-col gap-2 w-full max-w-sm'>
+            <form
+              onSubmit={() => sendWhatsappBookingViaForm(formData)}
+              className='bg-white text-black p-6 rounded-xl shadow-lg flex flex-col gap-2 w-full max-w-sm'
+            >
               <label>Full Name*</label>
               <input
                 type='text'
@@ -625,14 +660,12 @@ export default function RajasthanTourismPage() {
               <input
                 type='email'
                 placeholder='Your email address'
-                required
                 className='border border-gray-300 p-2 rounded-md'
               />
               <label className='mt-2'>Phone Number*</label>
               <input
                 type='tel'
-                placeholder='Your phone number'
-                required
+                placeholder='+91 phone number'
                 className='border border-gray-300 p-2 rounded-md'
               />
               <label className='mt-2'>Message</label>
@@ -641,7 +674,10 @@ export default function RajasthanTourismPage() {
                 placeholder='Your message'
                 className='border border-gray-300 p-2 rounded-md'
               ></textarea>
-              <Button className='mt-2 bg-black text-white rounded-lg opacity-85 px-6'>
+              <Button
+                type='submit'
+                className='mt-2 bg-black text-white rounded-lg opacity-85 px-6'
+              >
                 Submit
               </Button>
             </form>

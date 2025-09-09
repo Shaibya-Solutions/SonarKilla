@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import {Toaster} from "sonner";
 
 export const metadata: Metadata = {
   title: "Sonar Killa - Tours & Travels",
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         {children}
         <Analytics />
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );

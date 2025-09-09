@@ -1,8 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, Users } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Tour } from "@/data/data";
+import { sendWhatsappBookingViaLink } from "@/lib/utils";
+import { toast } from "sonner";
 
 export default function TourCard({ tour }: { tour: Tour }) {
   return (
@@ -42,7 +43,13 @@ export default function TourCard({ tour }: { tour: Tour }) {
             <div>
               <span className='text-sm'>₹ price on request</span>
             </div>
-            <Button className='bg-orange-400 hover:bg-orange-600 text-white rounded-lg opacity-85 px-6'>
+            <Button
+              onClick={() => {
+                toast.success("Redirecting to WhatsApp...\nIf you are using whatsapp desktop, you have to copy the message and send it manually.");
+                sendWhatsappBookingViaLink(tour.title);
+              }}
+              className='bg-orange-400 hover:bg-orange-600 text-white rounded-lg opacity-85 px-6'
+            >
               Send Enquiry
             </Button>
           </div>
