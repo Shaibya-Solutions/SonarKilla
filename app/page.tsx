@@ -399,7 +399,7 @@ export default function RajasthanTourismPage() {
         }}
       >
         <div className='container mx-auto'>
-          <div className='infinite-scroll-wrapper min-h-[700px]'>
+          <div className='infinite-scroll-wrapper h-[700px]'>
             <div className='infinite-scroll-content bg-black p-4 w-max rounded-lg transform -rotate-3 shadow-2xl'>
               {/* Duplicate the whole image set */}
               {[...Array(2)].map((_, i) => (
@@ -409,49 +409,49 @@ export default function RajasthanTourismPage() {
                     alt='Desert Sunset'
                     width={450}
                     height={1000}
-                    className='flex-shrink-0 rounded-2xl object-cover'
+                    className='flex-shrink-0 rounded-2xl object-cover hover:scale-105 transition-transform'
                   />
                   <Image
                     src='/hawa-mahal-jaipur-pink-palace-architecture.jpg'
                     alt='Hawa Mahal'
                     width={450}
                     height={1000}
-                    className='flex-shrink-0 rounded-2xl object-cover'
+                    className='flex-shrink-0 rounded-2xl object-cover hover:scale-105 transition-transform'
                   />
                   <Image
                     src='/udaipur-city-palace-lake-view-rajasthan.jpg'
                     alt='Udaipur Palace'
                     width={450}
                     height={1000}
-                    className='flex-shrink-0 rounded-2xl object-cover'
+                    className='flex-shrink-0 rounded-2xl object-cover hover:scale-105 transition-transform'
                   />
                   <Image
                     src='/camel-safari-thar-desert-rajasthan-sunset.jpg'
                     alt='Camel Safari'
                     width={450}
                     height={1000}
-                    className='flex-shrink-0 rounded-2xl object-cover'
+                    className='flex-shrink-0 rounded-2xl object-cover hover:scale-105 transition-transform'
                   />
                   <Image
                     src='/rajasthani-folk-dancers-traditional-costume-perfor.jpg'
                     alt='Folk Dancers'
                     width={450}
                     height={1000}
-                    className='flex-shrink-0 rounded-2xl object-cover'
+                    className='flex-shrink-0 rounded-2xl object-cover hover:scale-105 transition-transform'
                   />
                   <Image
                     src='/rajasthani-palace-courtyard-architecture.jpg'
                     alt='Palace Courtyard'
                     width={450}
                     height={1000}
-                    className='flex-shrink-0 rounded-2xl object-cover'
+                    className='flex-shrink-0 rounded-2xl object-cover hover:scale-105 transition-transform'
                   />
                   <Image
                     src='/rajasthani-elephant-decorated-for-festival.jpg'
                     alt='Decorated Elephant'
                     width={450}
                     height={1000}
-                    className='flex-shrink-0 rounded-2xl object-cover mr-4'
+                    className='flex-shrink-0 rounded-2xl object-cover mr-4 hover:scale-105 transition-transform'
                   />
                 </div>
               ))}

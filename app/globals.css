@@ -145,6 +145,10 @@
   animation: infinite-scroll 20s linear infinite; /* increase time for smoothness */
 }
 
+.infinite-scroll-content:hover {
+  animation-play-state: paused;
+}
+
 .hero-section {
   clip-path: ellipse(85% 100% at 50% 0%);
 }
